@@ -9,7 +9,9 @@ OptionSettings:
     StreamLogs: true
     RetentionInDays: "7"
   aws:elasticbeanstalk:command:
-    DeploymentPolicy: Immutable
+    DeploymentPolicy: Rolling
+    BatchSizeType: Fixed
+    BatchSize: 1
   aws:elasticbeanstalk:environment:
     EnvironmentType: LoadBalanced
     LoadBalancerType: application
@@ -25,8 +27,9 @@ OptionSettings:
     ELBScheme: public
     AssociatePublicIpAddress: true
   aws:autoscaling:updatepolicy:rollingupdate:
-    RollingUpdateType: Immutable
+    RollingUpdateType: Health
     RollingUpdateEnabled: true
+    MaxBatchSize: 1
   aws:elbv2:listener:default:
     ListenerEnabled: false
   aws:elbv2:listener:443:
